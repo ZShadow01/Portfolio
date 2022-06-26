@@ -1,0 +1,266 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+.page {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes caret {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+div#navigationBar {
+  background-color: black;
+  color: white;
+  width: 100vw;
+  height: 60px;
+  box-shadow: 5px 5px 10px #555555;
+  position: fixed;
+  transition: color 0.6s, background-color 0.6s;
+  z-index: 99;
+  animation: slide-down 3.5s ease;
+}
+@keyframes slide-down {
+  0% {
+    transform: translateY(-500px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+div#navigationBar div.nav-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  background-color: inherit;
+  color: inherit;
+}
+div#navigationBar div.nav-container div.side-flex {
+  flex: 1;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container {
+  background-color: inherit;
+  color: inherit;
+  position: relative;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: min-content;
+  position: relative;
+  top: 17px;
+  left: 0;
+  background-color: inherit;
+  color: inherit;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar1, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar2, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar3 {
+  width: 35px;
+  height: 4px;
+  border-radius: 5px;
+  background-color: white;
+  transition: background-color 1.2s, transform 1s, width 0.8s;
+  transform-origin: center;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger:hover {
+  cursor: pointer;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  box-shadow: 5px 5px 10px #555555;
+  transition: max-height 0.8s;
+  background-color: inherit;
+  color: inherit;
+  list-style: none;
+  border-radius: 5px;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 5px;
+  height: calc(100% - 8px);
+  background-color: white;
+  border-radius: 5px;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar li {
+  padding: 10px 25px;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active div#navHamburger .bar1 {
+  transform: translateY(11px) rotate(45deg);
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active div#navHamburger .bar2 {
+  width: 0;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active div#navHamburger .bar3 {
+  transform: translateY(-11px) rotate(-45deg);
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar {
+  max-height: 300px;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar::before {
+  animation: dropdown 0.6s ease;
+}
+@keyframes dropdown {
+  0% {
+    height: 0;
+  }
+  40% {
+    height: 0;
+  }
+  100% {
+    height: calc(100% - 8px);
+  }
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar li {
+  position: relative;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar li::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 9px;
+  width: 0;
+  height: 5px;
+  transition: width 0.3s;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: white;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar li:hover::before {
+  width: 10px;
+}
+div#navigationBar div.nav-container h1.page-title {
+  flex: 2;
+  font-size: 24px;
+  text-align: center;
+  margin: auto;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+div#navigationBar div.nav-container h1.page-title:hover {
+  cursor: pointer;
+}
+div#navigationBar.scroll {
+  background: white;
+  color: black;
+}
+div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar1, div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar2, div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar3 {
+  background-color: black;
+}
+div#navigationBar.scroll div.nav-container div.nav-sidebar-container ul.nav-sidebar::before {
+  background-color: black;
+}
+div#navigationBar.scroll div.nav-container div.nav-sidebar-container ul.nav-sidebar li::before {
+  background-color: black;
+}
+
+div#header {
+  display: flex;
+}
+div#header div.introduction {
+  margin: auto;
+}
+div#header div.introduction div.intro-text {
+  font-size: 8vw;
+  text-align: center;
+}
+div#header div.introduction div.intro-text p.intro {
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: solid 3px black;
+  animation: typing 1.8s steps(15, end);
+}
+div#header div.introduction div.intro-text p.intro.active-caret {
+  animation: typing 1.8s steps(15, end), caret 1s step-end infinite 2s;
+}
+div#header div.introduction div.shortcut-btns {
+  position: absolute;
+  margin-top: 50px;
+}
+div#header div.introduction div.shortcut-btns div.shortcut-btn {
+  display: inline-block;
+  padding: 10px 40px;
+  margin-right: 15px;
+  border-radius: 50px;
+  border: solid 2px black;
+  outline: solid 2px transparent;
+  transition: background-color 0.4s, outline-color 0.4s;
+}
+div#header div.introduction div.shortcut-btns div.shortcut-btn:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+  outline-color: black;
+  cursor: pointer;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+div#header div.introduction div.shortcut-btns div.shortcut-btn.about-shortcut {
+  animation: fade-in 4.2s ease;
+}
+div#header div.introduction div.shortcut-btns div.shortcut-btn.projects-shortcut {
+  animation: fade-in 4.5s ease;
+}
+
+div#about {
+  display: flex;
+}
+div#about div.about-container {
+  margin: 10px auto auto auto;
+}
+div#about div.about-container p.anim-on-scroll {
+  font-size: 6vw;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 0.8s steps(4, end);
+}
+
+/*# sourceMappingURL=styles.css.map */
