@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    const activeCaret = 'active-caret';
+    let lastActiveCaret = $('p#activeCaret');
+    let header = $('div#header');
+    let about = $('div#about');
+
     // Click events
     $('div#navHamburger').click(function() {
         let parent = $(this).parent();
@@ -26,25 +31,33 @@ $(document).ready(function() {
         $('html, body').animate({
             scrollTop: projectsSection.position().top
         }, 800);
-    })
+    });
+
+    $('div#header div.introduction svg.appearance-toggle').click(function() {
+        let body = $('body');
+        if (body.hasClass('dark-mode')) {
+            body.removeClass('dark-mode');
+            body.addClass('light-mode');
+        } else {
+            body.removeClass('light-mode');
+            body.addClass('dark-mode');
+        }
+    });
 
     // Scroll events
     $(this).scroll(function() {
-        let nav = $('div#navigationBar');
-        const navHeight = nav.height();
         const scrollTop = $(this).scrollTop();
+
+        const activated = 'activated';
+        let headerCaption = $('div#header p#headerCaption');
+        let aboutCaption = $('div#about p#aboutCaption');
         
-        if (scrollTop > navHeight) {
-            nav.addClass('scroll');
-        } else {
-            nav.removeClass('scroll');
-        }
+        if (scrollTop > header.height() / 2 && scrollTop < about.position().top) {
+            if (!about.hasClass(activated)) {
+                about.addClass(activated);
 
-        let header = $('div#header');
-        const about = $('div#about');
-
-        if (scrollTop > header.height() / 2 && scrollTop < about.height()) {
-            about.addClass('activated');
+                aboutCaption.addClass(activeCaret);
+            }
         }
     });
 });

@@ -1,5 +1,10 @@
-$primary-colour: black;
-$secondary-colour: white;
+$dark-mode-dark-colour: rgb(25, 25, 25);
+$dark-mode-primary-colour: rgb(37, 37, 37);
+$dark-mode-light-colour: rgb(190, 190, 190);
+$dark-mode-orange-font: rgb(221, 129, 43);
+
+$appearance-change-duration: 1s;
+
 $main-font: 'Poppins', sans-serif;
 $mono-font: 'JetBrains Mono', monospace;
 
@@ -15,6 +20,8 @@ html, body {
     box-sizing: border-box;
     font-family: $main-font;
     overflow-x: hidden;
+    transition: color $appearance-change-duration, 
+                background-color $appearance-change-duration;
 }
 
 // STATIC
@@ -42,23 +49,216 @@ html, body {
         border-color: transparent;
     }
     50% {
-        border-color: black;
+        border-right-color: inherit;
     }
     100% {
         border-color: transparent;
     }
 }
 
+// BODY
+body.dark-mode {
+    background-color: $dark-mode-primary-colour;
+    color: white;
+    div#navigationBar {
+        background-color: $dark-mode-dark-colour;
+
+        div.nav-container > div.nav-sidebar-container {
+            div#navHamburger {
+                .bar1, .bar2, .bar3 {
+                    background-color: white;
+                }
+            }
+
+            ul.nav-sidebar {
+                background-color: $dark-mode-dark-colour;
+                color: white;
+
+                &::before {
+                    background-color: white;
+                }
+
+                li::before {
+                    background-color: white;
+                }
+            }
+        }
+    }
+
+    div#header {
+        div.introduction {
+            div.intro-text { 
+                p#headerCaption.active-caret {
+                    color: $dark-mode-orange-font;
+                    border-right-color: $dark-mode-orange-font;
+                }
+            }
+
+            div.appearance-toggle-container {
+                svg#roundMoon {
+                    filter: drop-shadow(5px 5px 2px black);
+                    @include keyframes(moonrise) {
+                        0% {
+                            transform: translateY(200px);
+                            opacity: 0;
+                            filter: none;
+                        }
+                        100% {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                    }
+                    animation: moonrise 2s ease;
+                }
+    
+                svg#shiningSun {
+                    opacity: 0;
+                    pointer-events: none;
+                    @include keyframes(sundown) {
+                        0% {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(200px);
+                            opacity: 0;
+                        }
+                    }
+                    animation: sundown 2s ease;
+                }
+            }
+        }
+
+        div.shortcut-btns {
+            div.shortcut-btn {
+                border-color: $dark-mode-dark-colour;
+                &:hover {
+                    background-color: $dark-mode-light-colour;
+                    color: black;
+                    border-color: $dark-mode-primary-colour;
+                    outline-color: white;
+                }
+            }
+        }
+    }
+
+    div#about {
+        div.about-container {
+            p#aboutCaption {
+                color: $dark-mode-orange-font;
+                border-right-color: $dark-mode-orange-font;
+            }
+        }
+    }
+}
+
+// Light mode
+body.light-mode {
+    background-color: white;
+    color: black;
+    div#navigationBar {
+        background-color: white;
+        box-shadow: 5px 5px 10px darkgrey;
+
+        div.nav-container > div.nav-sidebar-container {
+            div#navHamburger {
+                .bar1, .bar2, .bar3 {
+                    background-color: black;
+                }
+            }
+
+            ul.nav-sidebar {
+                background-color: white;
+                color: black;
+                box-shadow: 5px 5px 10px darkgrey;
+
+                &::before {
+                    background-color: black;
+                }
+
+                li::before {
+                    background-color: black;
+                }
+            }
+        }
+    }
+
+    div#header {
+        div.introduction {
+            div.intro-text { 
+            
+                p#headerCaption.active-caret {
+                    color: black;
+                    border-right-color: black;
+                }
+            }
+            
+            div.appearance-toggle-container {
+                svg#roundMoon {
+                    opacity: 0;
+                    pointer-events: none;
+                    @include keyframes(moondown) {
+                        0% {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(200px);
+                            opacity: 0;
+                        }
+                    }
+                    animation: moondown 2s ease;
+                }
+
+                svg#shiningSun {
+                    filter: drop-shadow(5px 5px 2px  darkgrey);
+                    @include keyframes(sunrise) {
+                        0% {
+                            transform: translateY(200px);
+                            opacity: 0;
+                        }
+                        100% {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                    }
+                    animation: sunrise 2s ease;
+                }
+            }
+        }
+
+        div.shortcut-btns {
+            div.shortcut-btn {
+                border-color: black;
+                &:hover {
+                    background-color: black;
+                    color: white;
+                    border-color: white;
+                    outline-color: black;
+                }
+            }
+        }
+    }
+
+    div#about {
+        div.about-container {
+            p#aboutCaption {
+                color: black;
+                border-right-color: black;
+            }
+        }
+    }
+}
+
 // NAVIGATION
 div#navigationBar {
-    background-color: $primary-colour;
-    color: $secondary-colour;
     width: 100vw;
     height: 60px;
-    box-shadow: 5px 5px 10px rgb(85, 85, 85);
     position: fixed;
-    transition: color 0.6s, background-color 0.6s;
     z-index: 99;
+    transition: background-color $appearance-change-duration, 
+                box-shadow $appearance-change-duration;
+
     @include keyframes(slide-down) {
         0% {
             transform: translateY(-500px);
@@ -75,16 +275,12 @@ div#navigationBar {
         width: 90%;
         height: 100%;
         margin: auto;
-        background-color: inherit;
-        color: inherit;
 
         div.side-flex {
             flex: 1;
         }
 
         div.nav-sidebar-container {
-            background-color: inherit;
-            color: inherit;
             position: relative;
 
             div#navHamburger {
@@ -95,15 +291,12 @@ div#navigationBar {
                 position: relative;
                 top: calc((60px - ((7px * 2) + (4px * 3))) / 2);
                 left: 0;
-                background-color: inherit;
-                color: inherit;
 
                 div.bar1, div.bar2, div.bar3 {
                     width: 35px;
                     height: 4px;
                     border-radius: 5px;
-                    background-color: $secondary-colour;
-                    transition: background-color 1.2s, transform 1s, width 0.8s;
+                    transition: transform 1s, width 0.8s, background-color $appearance-change-duration;
                     transform-origin: center;
                 }
 
@@ -120,10 +313,7 @@ div#navigationBar {
                 overflow: hidden;
                 padding: 0;
                 margin: 0;
-                box-shadow: 5px 5px 10px rgb(85, 85, 85);
                 transition: max-height 0.8s;
-                background-color: inherit;
-                color: inherit;
                 list-style: none;
                 border-radius: 5px;
                 
@@ -134,7 +324,6 @@ div#navigationBar {
                     left: 4px;
                     width: 5px;
                     height: calc(100% - 8px);
-                    background-color: white;
                     border-radius: 5px;
                 }
 
@@ -186,9 +375,9 @@ div#navigationBar {
                             transition: width 0.3s;
                             border-bottom-right-radius: 5px;
                             border-top-right-radius: 5px;
-                            background-color: $secondary-colour;
                         }
                         &:hover {
+                            cursor: pointer;
                             &::before {
                                 width: 10px;
                             }
@@ -212,55 +401,41 @@ div#navigationBar {
             }
         }
     }
-    
-    &.scroll {
-        background: $secondary-colour;
-        color: $primary-colour;
-
-        div.nav-container > div.nav-sidebar-container > div#navHamburger {
-            .bar1, .bar2, .bar3 {
-                background-color: $primary-colour;
-            }
-        }
-
-        div.nav-container {
-            div.nav-sidebar-container {
-                ul.nav-sidebar {
-                    &::before {
-                        background-color: $primary-colour;
-                    }
-
-                    li {
-                        &::before {
-                            background-color: $primary-colour;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 // Header
 div#header {
     display: flex;
+    position: relative;
 
     div.introduction {
         margin: auto;
 
         div.intro-text {
-            font-size: 8vw;
+            font-size: 7vw;
             text-align: center;
+            margin-top: 100px;
 
-            p.intro {
+            p#headerCaption {
+                display: none;
                 margin: 0 auto;
-                white-space: nowrap;
-                overflow: hidden;
-                border-right: solid 3px black;
-                animation: typing 1.8s steps(15, end);
-                
-                &.active-caret {
-                    animation: typing 1.8s steps(15, end), caret 1s step-end infinite 2s;
+            }
+        }
+
+        div.appearance-toggle-container {
+            svg#roundMoon, svg#shiningSun {
+                position: absolute;
+                top: 14%;
+                left: calc((100% - 200px) / 2);
+                width: 200px;
+                height: 200px;
+                transition: width 0.5s, height 0.5s, left 0.5s, filter 1s;
+                    
+                &:hover {
+                    left: calc((100% - 215px) / 2);
+                    width: 215px;
+                    height: 215px;
+                    cursor: pointer;
                 }
             }
         }
@@ -274,15 +449,12 @@ div#header {
                 padding: 10px 40px;
                 margin-right: 15px;
                 border-radius: 50px;
-                border: solid 2px $primary-colour;
+                border-style: solid;
+                border-width: 2px;
                 outline: solid 2px transparent;
                 transition: background-color 0.4s, outline-color 0.4s;
 
                 &:hover {
-                    background-color: $primary-colour;
-                    color: $secondary-colour;
-                    border-color: $secondary-colour;
-                    outline-color: $primary-colour;
                     cursor: pointer;
                 }
                 
@@ -308,20 +480,49 @@ div#header {
             }
         }
     }
+
+    &.activated {
+        div.introduction > div.intro-text > p#headerCaption {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+
+            &.active-caret {
+                border-right-width: 3px;
+                border-right-style: solid;
+                animation: typing 2s steps(15, end), caret 1s step-end infinite 2.2s;
+            }
+        }
+    }
 }
 
 
+// About
 div#about {
     display: flex;
     div.about-container {
         margin: 10px auto auto auto;
+        font-size: 6vw;
 
-        p.anim-on-scroll {
-            font-size: 6vw;
+        p#aboutCaption {
+            display: none;
             margin: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 0.8s steps(4, end);
+        }
+    }
+
+    &.activated {
+        div.about-container {
+            p#aboutCaption {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+
+                &.active-caret {
+                    border-right-width: 3px;
+                    border-right-style: solid;
+                    animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
+                }
+            }
         }
     }
 }

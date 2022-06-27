@@ -16,7 +16,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="js/index.js" type="text/javascript" defer></script>
     </head>
-    <body>
+    <body class="dark-mode">
         <div id="navigationBar">
             <div class="nav-container">
                 <div class="side-flex nav-sidebar-container">
@@ -38,10 +38,31 @@
         </div>
 
         <div id="main">
-            <div class="page" id="header">
+            <div class="page activated" id="header">
                 <div class="introduction">
                     <div class="intro-text">
-                        <p class="intro mono active-caret">Hello, I'm Shad</p>
+                        <p id="headerCaption" class="mono active-caret">Hello, I'm ZZZZ</p>
+                    </div>
+
+                    <!-- Dark mode -->
+                    <div class="appearance-toggle-container">
+                        <svg class="appearance-toggle" id="roundMoon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+                            <circle id="moon" cx="50" cy="50" r="50" fill="#CEEFFF" />
+                        </svg>
+    
+                        <!-- Light mode -->
+                        <svg class="appearance-toggle" id="shiningSun" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 100 100">
+                            <circle id="sun" cx="50" cy="50" r="25" fill="#E9C260" />
+                            <polygon points="0,50 10,40 10,60" fill="#E9C260" />
+                            <polygon points="100,50 90,40 90,60" fill="#E9C260" />
+                            <polygon points="50,0 40,10 60,10" fill="#E9C260" />
+                            <polygon points="50,100 40,90 60,90" fill="#E9C260" />
+                            
+                            <polygon points="15,15 15,30 30,15" fill="#E9C260" />
+                            <polygon points="85,15 85,30 70,15" fill="#E9C260" />
+                            <polygon points="15,85 15,70 30,85" fill="#E9C260" />
+                            <polygon points="85,85 85,70 70,85" fill="#E9C260" />
+                        </svg>
                     </div>
 
                     <div class="shortcut-btns">
@@ -55,9 +76,11 @@
 
             <div class="page" id="about">
                 <div class="about-container">
-                    <p class="mono anim-on-scroll">Test</p>
+                    <p id="aboutCaption" class="mono">About Me</p>
                 </div>
             </div>
+
+            <hr>
 
             <div class="page" id="projects">
 

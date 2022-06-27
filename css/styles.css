@@ -4,6 +4,7 @@ html, body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
+  transition: color 1s, background-color 1s;
 }
 
 .page {
@@ -29,21 +30,155 @@ html, body {
     border-color: transparent;
   }
   50% {
-    border-color: black;
+    border-right-color: inherit;
   }
   100% {
     border-color: transparent;
   }
 }
-div#navigationBar {
+body.dark-mode {
+  background-color: #252525;
+  color: white;
+}
+body.dark-mode div#navigationBar {
+  background-color: #191919;
+}
+body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar1, body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar2, body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar3 {
+  background-color: white;
+}
+body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar {
+  background-color: #191919;
+  color: white;
+}
+body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar::before {
+  background-color: white;
+}
+body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar li::before {
+  background-color: white;
+}
+body.dark-mode div#header div.introduction div.intro-text p#headerCaption.active-caret {
+  color: #dd812b;
+  border-right-color: #dd812b;
+}
+body.dark-mode div#header div.introduction div.appearance-toggle-container svg#roundMoon {
+  filter: drop-shadow(5px 5px 2px black);
+  animation: moonrise 2s ease;
+}
+@keyframes moonrise {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+    filter: none;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+body.dark-mode div#header div.introduction div.appearance-toggle-container svg#shiningSun {
+  opacity: 0;
+  pointer-events: none;
+  animation: sundown 2s ease;
+}
+@keyframes sundown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+body.dark-mode div#header div.shortcut-btns div.shortcut-btn {
+  border-color: #191919;
+}
+body.dark-mode div#header div.shortcut-btns div.shortcut-btn:hover {
+  background-color: #bebebe;
+  color: black;
+  border-color: #252525;
+  outline-color: white;
+}
+body.dark-mode div#about div.about-container p#aboutCaption {
+  color: #dd812b;
+  border-right-color: #dd812b;
+}
+
+body.light-mode {
+  background-color: white;
+  color: black;
+}
+body.light-mode div#navigationBar {
+  background-color: white;
+  box-shadow: 5px 5px 10px darkgrey;
+}
+body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar1, body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar2, body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container div#navHamburger .bar3 {
+  background-color: black;
+}
+body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar {
+  background-color: white;
+  color: black;
+  box-shadow: 5px 5px 10px darkgrey;
+}
+body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar::before {
+  background-color: black;
+}
+body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar li::before {
+  background-color: black;
+}
+body.light-mode div#header div.introduction div.intro-text p#headerCaption.active-caret {
+  color: black;
+  border-right-color: black;
+}
+body.light-mode div#header div.introduction div.appearance-toggle-container svg#roundMoon {
+  opacity: 0;
+  pointer-events: none;
+  animation: moondown 2s ease;
+}
+@keyframes moondown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+body.light-mode div#header div.introduction div.appearance-toggle-container svg#shiningSun {
+  filter: drop-shadow(5px 5px 2px darkgrey);
+  animation: sunrise 2s ease;
+}
+@keyframes sunrise {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+body.light-mode div#header div.shortcut-btns div.shortcut-btn {
+  border-color: black;
+}
+body.light-mode div#header div.shortcut-btns div.shortcut-btn:hover {
   background-color: black;
   color: white;
+  border-color: white;
+  outline-color: black;
+}
+body.light-mode div#about div.about-container p#aboutCaption {
+  color: black;
+  border-right-color: black;
+}
+
+div#navigationBar {
   width: 100vw;
   height: 60px;
-  box-shadow: 5px 5px 10px #555555;
   position: fixed;
-  transition: color 0.6s, background-color 0.6s;
   z-index: 99;
+  transition: background-color 1s, box-shadow 1s;
   animation: slide-down 3.5s ease;
 }
 @keyframes slide-down {
@@ -60,15 +195,11 @@ div#navigationBar div.nav-container {
   width: 90%;
   height: 100%;
   margin: auto;
-  background-color: inherit;
-  color: inherit;
 }
 div#navigationBar div.nav-container div.side-flex {
   flex: 1;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container {
-  background-color: inherit;
-  color: inherit;
   position: relative;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger {
@@ -79,15 +210,12 @@ div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger {
   position: relative;
   top: 17px;
   left: 0;
-  background-color: inherit;
-  color: inherit;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar1, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar2, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar3 {
   width: 35px;
   height: 4px;
   border-radius: 5px;
-  background-color: white;
-  transition: background-color 1.2s, transform 1s, width 0.8s;
+  transition: transform 1s, width 0.8s, background-color 1s;
   transform-origin: center;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger:hover {
@@ -101,10 +229,7 @@ div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  box-shadow: 5px 5px 10px #555555;
   transition: max-height 0.8s;
-  background-color: inherit;
-  color: inherit;
   list-style: none;
   border-radius: 5px;
 }
@@ -115,7 +240,6 @@ div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar::be
   left: 4px;
   width: 5px;
   height: calc(100% - 8px);
-  background-color: white;
   border-radius: 5px;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar li {
@@ -160,7 +284,9 @@ div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-side
   transition: width 0.3s;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-  background-color: white;
+}
+div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar li:hover {
+  cursor: pointer;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-sidebar li:hover::before {
   width: 10px;
@@ -177,39 +303,36 @@ div#navigationBar div.nav-container h1.page-title {
 div#navigationBar div.nav-container h1.page-title:hover {
   cursor: pointer;
 }
-div#navigationBar.scroll {
-  background: white;
-  color: black;
-}
-div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar1, div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar2, div#navigationBar.scroll div.nav-container > div.nav-sidebar-container > div#navHamburger .bar3 {
-  background-color: black;
-}
-div#navigationBar.scroll div.nav-container div.nav-sidebar-container ul.nav-sidebar::before {
-  background-color: black;
-}
-div#navigationBar.scroll div.nav-container div.nav-sidebar-container ul.nav-sidebar li::before {
-  background-color: black;
-}
 
 div#header {
   display: flex;
+  position: relative;
 }
 div#header div.introduction {
   margin: auto;
 }
 div#header div.introduction div.intro-text {
-  font-size: 8vw;
+  font-size: 7vw;
   text-align: center;
+  margin-top: 100px;
 }
-div#header div.introduction div.intro-text p.intro {
+div#header div.introduction div.intro-text p#headerCaption {
+  display: none;
   margin: 0 auto;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: solid 3px black;
-  animation: typing 1.8s steps(15, end);
 }
-div#header div.introduction div.intro-text p.intro.active-caret {
-  animation: typing 1.8s steps(15, end), caret 1s step-end infinite 2s;
+div#header div.introduction div.appearance-toggle-container svg#roundMoon, div#header div.introduction div.appearance-toggle-container svg#shiningSun {
+  position: absolute;
+  top: 14%;
+  left: calc((100% - 200px) / 2);
+  width: 200px;
+  height: 200px;
+  transition: width 0.5s, height 0.5s, left 0.5s, filter 1s;
+}
+div#header div.introduction div.appearance-toggle-container svg#roundMoon:hover, div#header div.introduction div.appearance-toggle-container svg#shiningSun:hover {
+  left: calc((100% - 215px) / 2);
+  width: 215px;
+  height: 215px;
+  cursor: pointer;
 }
 div#header div.introduction div.shortcut-btns {
   position: absolute;
@@ -220,15 +343,12 @@ div#header div.introduction div.shortcut-btns div.shortcut-btn {
   padding: 10px 40px;
   margin-right: 15px;
   border-radius: 50px;
-  border: solid 2px black;
+  border-style: solid;
+  border-width: 2px;
   outline: solid 2px transparent;
   transition: background-color 0.4s, outline-color 0.4s;
 }
 div#header div.introduction div.shortcut-btns div.shortcut-btn:hover {
-  background-color: black;
-  color: white;
-  border-color: white;
-  outline-color: black;
   cursor: pointer;
 }
 @keyframes fade-in {
@@ -248,19 +368,37 @@ div#header div.introduction div.shortcut-btns div.shortcut-btn.about-shortcut {
 div#header div.introduction div.shortcut-btns div.shortcut-btn.projects-shortcut {
   animation: fade-in 4.5s ease;
 }
+div#header.activated div.introduction > div.intro-text > p#headerCaption {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+div#header.activated div.introduction > div.intro-text > p#headerCaption.active-caret {
+  border-right-width: 3px;
+  border-right-style: solid;
+  animation: typing 2s steps(15, end), caret 1s step-end infinite 2.2s;
+}
 
 div#about {
   display: flex;
 }
 div#about div.about-container {
   margin: 10px auto auto auto;
-}
-div#about div.about-container p.anim-on-scroll {
   font-size: 6vw;
+}
+div#about div.about-container p#aboutCaption {
+  display: none;
   margin: 0;
-  overflow: hidden;
+}
+div#about.activated div.about-container p#aboutCaption {
+  display: block;
   white-space: nowrap;
-  animation: typing 0.8s steps(4, end);
+  overflow: hidden;
+}
+div#about.activated div.about-container p#aboutCaption.active-caret {
+  border-right-width: 3px;
+  border-right-style: solid;
+  animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,5 @@
+<svg id="triangle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" width="500" height="500" style="background-color:transparent">
+    <line id="triangle-s-line1" x1="-250" y1="0" x2="250" y2="0" transform="matrix(1 0 0 0.973537 250 466.506351)" fill="none" stroke="#3f5787" stroke-width="3"/>
+    <line id="triangle-s-line2" x1="-250" y1="0" x2="250" y2="0" transform="matrix(.5-.866025 0.866025 0.5 125 250)" fill="none" stroke="#3f5787" stroke-width="3"/>
+    <line id="triangle-s-line3" x1="-250" y1="0" x2="250" y2="0" transform="matrix(.5 0.866025-.866025 0.5 375 250)" fill="none" stroke="#3f5787" stroke-width="3"/>
+</svg>
