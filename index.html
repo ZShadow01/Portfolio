@@ -7,16 +7,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My portfolio</title>
         
-        <!--Fonts-->
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Poppins&display=swap" rel="stylesheet">
-        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+        <!-- Scripts / Style -->
         <link rel="stylesheet" href="css/styles.css" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="js/index.js" type="text/javascript" defer></script>
     </head>
-    <body class="dark-mode">
+    <body>
+        <!-- NAVIGATION -->
         <div id="navigationBar">
             <div class="nav-container">
                 <div class="side-flex nav-sidebar-container">
@@ -37,17 +39,18 @@
             </div>
         </div>
 
+        <!-- MAIN -->
         <div id="main">
             <div class="page activated" id="header">
                 <div class="introduction">
                     <div class="intro-text">
-                        <p id="headerCaption" class="mono active-caret">Hello, I'm ZZZZ</p>
+                        <p id="headerCaption" class="mono typewriter">Hello, I'm ZZZZ</p>
                     </div>
 
-                    <!-- Dark mode -->
                     <div class="appearance-toggle-container">
+                        <!-- Dark mode -->
                         <svg class="appearance-toggle" id="roundMoon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
-                            <circle id="moon" cx="50" cy="50" r="50" fill="#CEEFFF" />
+                            <path id="moon" d="M100 30 A52.178 50 0 1 0 100 70 A37 37 0 1 1 100 30Z" fill="#CEEFFF"/>
                         </svg>
     
                         <!-- Light mode -->
@@ -74,16 +77,20 @@
 
             <hr>
 
+            <!-- ABOUT -->
             <div class="page" id="about">
                 <div class="about-container">
-                    <p id="aboutCaption" class="mono">About Me</p>
+                    <p id="aboutCaption" class="mono typewriter">About Me</p>
                 </div>
             </div>
 
             <hr>
 
+            <!-- PROJECTS -->
             <div class="page" id="projects">
-
+                <div class="projects-container">
+                    <p id="projectsCaption" class="mono typewriter">Projects</p>
+                </div>
             </div>
         </div>
     </body>
