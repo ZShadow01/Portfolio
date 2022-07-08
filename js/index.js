@@ -1,15 +1,21 @@
 $(document).ready(function() {
-    const activeCaret = 'active-caret';
-    let lastActiveCaret = $('p#activeCaret');
+    let body = $('body');
     let header = $('div#header');
     let about = $('div#about');
+    let projects = $('div#projects');
+    let navbar = $('div#navigationBar');
 
-    // Click events
+    // DEVICE THEME
+    const match = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    body.addClass(match ? 'dark-mode' : 'light-mode');
+
+    // CLICK EVENTS
     $('div#navHamburger').click(function() {
         let parent = $(this).parent();
         parent.toggleClass('active');
     });
 
+    // Page title
     $('div#navigationBar > div.nav-container > h1.page-title').click(function(event) {
         event.preventDefault();
         $('html, body').animate({
@@ -17,24 +23,25 @@ $(document).ready(function() {
         }, 800);
     });
 
+    // Shortcut buttons
+    // About shortcut button
     $('li.about-item, div.shortcut-btn.about-shortcut').click(function(event) {
         event.preventDefault();
-        const aboutSection = $('div#about');
         $('html, body').animate({
-            scrollTop: aboutSection.position().top
+            scrollTop: about.position().top - navbar.height()
         }, 800);
     });
 
+    // Projects shortcut button
     $('li.projects-item, div.shortcut-btn.projects-shortcut').click(function(event) {
         event.preventDefault();
-        const projectsSection = $('div#projects');
         $('html, body').animate({
-            scrollTop: projectsSection.position().top
+            scrollTop: projects.position().top - navbar.height()
         }, 800);
     });
 
+    // Appearance toggle button (light-dark mode switch)
     $('div#header div.introduction svg.appearance-toggle').click(function() {
-        let body = $('body');
         if (body.hasClass('dark-mode')) {
             body.removeClass('dark-mode');
             body.addClass('light-mode');
@@ -44,20 +51,23 @@ $(document).ready(function() {
         }
     });
 
-    // Scroll events
+    // SCROLL EVENTS
     $(this).scroll(function() {
         const scrollTop = $(this).scrollTop();
 
         const activated = 'activated';
-        let headerCaption = $('div#header p#headerCaption');
         let aboutCaption = $('div#about p#aboutCaption');
+        let projectsCaption = $('div#projects p#projectsCaption');
         
-        if (scrollTop > header.height() / 2 && scrollTop < about.position().top) {
-            if (!about.hasClass(activated)) {
-                about.addClass(activated);
-
-                aboutCaption.addClass(activeCaret);
-            }
+        // About
+        if (scrollTop > header.height() / 2 && scrollTop < about.position().top && !about.hasClass(activated)) {
+            about.addClass(activated);
+            aboutCaption.addClass(activeCaret);
+        }
+        // Projects
+        else if (scrollTop > about.position().top + about.height() / 2 && !projects.hasClass(activated)) {
+            projects.addClass(activated);
+            projectsCaption.addClass(activeCaret);
         }
     });
 });

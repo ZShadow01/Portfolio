@@ -1,12 +1,14 @@
 $dark-mode-dark-colour: rgb(25, 25, 25);
 $dark-mode-primary-colour: rgb(37, 37, 37);
-$dark-mode-light-colour: rgb(190, 190, 190);
+$dark-mode-light-colour: white;
 $dark-mode-orange-font: rgb(221, 129, 43);
 
 $appearance-change-duration: 1s;
 
+$navbar-height: 65px;
+
 $main-font: 'Poppins', sans-serif;
-$mono-font: 'JetBrains Mono', monospace;
+$mono-font: 'Roboto Mono', monospace;
 
 @mixin keyframes($name) {
     @keyframes #{$name} {
@@ -22,6 +24,20 @@ html, body {
     overflow-x: hidden;
     transition: color $appearance-change-duration, 
                 background-color $appearance-change-duration;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        border: solid 2px transparent;
+        background-clip: content-box;
+    }
 }
 
 // STATIC
@@ -33,6 +49,13 @@ html, body {
 
 .mono {
     font-family: $mono-font;
+}
+
+.typewriter {
+    white-space: nowrap;
+    overflow: hidden;
+    border-right-width: 3px;
+    border-right-style: solid;
 }
 
 @include keyframes(typing) {
@@ -60,6 +83,14 @@ html, body {
 body.dark-mode {
     background-color: $dark-mode-primary-colour;
     color: white;
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $dark-mode-light-colour;
+        &:hover {
+            background-color: rgb(178, 178, 178);
+        }
+    }
+
     div#navigationBar {
         background-color: $dark-mode-dark-colour;
 
@@ -88,7 +119,7 @@ body.dark-mode {
     div#header {
         div.introduction {
             div.intro-text { 
-                p#headerCaption.active-caret {
+                p#headerCaption {
                     color: $dark-mode-orange-font;
                     border-right-color: $dark-mode-orange-font;
                 }
@@ -99,12 +130,12 @@ body.dark-mode {
                     filter: drop-shadow(5px 5px 2px black);
                     @include keyframes(moonrise) {
                         0% {
-                            transform: translateY(200px);
+                            transform: translateY(200px) rotate(-45deg);
                             opacity: 0;
                             filter: none;
                         }
                         100% {
-                            transform: translateY(0);
+                            transform: translateY(0) rotate(0);
                             opacity: 1;
                         }
                     }
@@ -131,12 +162,12 @@ body.dark-mode {
 
         div.shortcut-btns {
             div.shortcut-btn {
-                border-color: $dark-mode-dark-colour;
+                border-color: $dark-mode-light-colour;
                 &:hover {
                     background-color: $dark-mode-light-colour;
                     color: black;
                     border-color: $dark-mode-primary-colour;
-                    outline-color: white;
+                    outline-color: $dark-mode-light-colour;
                 }
             }
         }
@@ -150,12 +181,29 @@ body.dark-mode {
             }
         }
     }
+
+    div#projects {
+        div.projects-container {
+            p#projectsCaption {
+                color: $dark-mode-orange-font;
+                border-right-color: $dark-mode-orange-font;
+            }
+        }
+    }
 }
 
 // Light mode
 body.light-mode {
     background-color: white;
     color: black;
+
+    &::-webkit-scrollbar-thumb {
+        background-color: black;
+        &:hover {
+            background-color: rgb(80, 80, 80);
+        }
+    }
+
     div#navigationBar {
         background-color: white;
         box-shadow: 5px 5px 10px darkgrey;
@@ -187,7 +235,7 @@ body.light-mode {
         div.introduction {
             div.intro-text { 
             
-                p#headerCaption.active-caret {
+                p#headerCaption {
                     color: black;
                     border-right-color: black;
                 }
@@ -214,11 +262,11 @@ body.light-mode {
                     filter: drop-shadow(5px 5px 2px  darkgrey);
                     @include keyframes(sunrise) {
                         0% {
-                            transform: translateY(200px);
+                            transform: translateY(200px) rotate(45deg);
                             opacity: 0;
                         }
                         100% {
-                            transform: translateY(0);
+                            transform: translateY(0) rotate(0);
                             opacity: 1;
                         }
                     }
@@ -248,12 +296,21 @@ body.light-mode {
             }
         }
     }
+    
+    div#projects {
+        div.projects-container {
+            p#projectsCaption {
+                color: black;
+                border-right-color: black;
+            }
+        }
+    }
 }
 
 // NAVIGATION
 div#navigationBar {
     width: 100vw;
-    height: 60px;
+    height: $navbar-height;
     position: fixed;
     z-index: 99;
     transition: background-color $appearance-change-duration, 
@@ -289,7 +346,7 @@ div#navigationBar {
                 gap: 7px;
                 width: min-content;
                 position: relative;
-                top: calc((60px - ((7px * 2) + (4px * 3))) / 2);
+                top: calc(($navbar-height - ((7px * 2) + (4px * 3))) / 2);
                 left: 0;
 
                 div.bar1, div.bar2, div.bar3 {
@@ -307,13 +364,16 @@ div#navigationBar {
 
             ul.nav-sidebar {
                 position: absolute;
-                top: 65px;
+                top: calc($navbar-height + 5px);
                 left: 0;
                 max-height: 0;
                 overflow: hidden;
                 padding: 0;
                 margin: 0;
-                transition: max-height 0.8s;
+                transition: max-height 0.8s, 
+                            background-color $appearance-change-duration, 
+                            color $appearance-change-duration,
+                            box-shadow $appearance-change-duration;
                 list-style: none;
                 border-radius: 5px;
                 
@@ -325,6 +385,7 @@ div#navigationBar {
                     width: 5px;
                     height: calc(100% - 8px);
                     border-radius: 5px;
+                    transition: background-color $appearance-change-duration;
                 }
 
                 li {
@@ -372,7 +433,7 @@ div#navigationBar {
                             left: 9px;
                             width: 0;
                             height: 5px;
-                            transition: width 0.3s;
+                            transition: width 0.3s, background-color $appearance-change-duration;
                             border-bottom-right-radius: 5px;
                             border-top-right-radius: 5px;
                         }
@@ -395,6 +456,7 @@ div#navigationBar {
             user-select: none;
             -moz-user-select: none;
             -webkit-user-select: none;
+            transition: color 0.1s;
 
             &:hover {
                 cursor: pointer;
@@ -414,27 +476,28 @@ div#header {
         div.intro-text {
             font-size: 7vw;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 150px;
 
             p#headerCaption {
                 display: none;
                 margin: 0 auto;
+                transition: color $appearance-change-duration;
             }
         }
 
         div.appearance-toggle-container {
             svg#roundMoon, svg#shiningSun {
                 position: absolute;
-                top: 14%;
-                left: calc((100% - 200px) / 2);
-                width: 200px;
-                height: 200px;
+                top: 16%;
+                left: calc((100% - 225px) / 2);
+                width: 225px;
+                height: 225px;
                 transition: width 0.5s, height 0.5s, left 0.5s, filter 1s;
-                    
+                
                 &:hover {
-                    left: calc((100% - 215px) / 2);
-                    width: 215px;
-                    height: 215px;
+                    left: calc((100% - 250px) / 2);
+                    width: 250px;
+                    height: 250px;
                     cursor: pointer;
                 }
             }
@@ -442,11 +505,11 @@ div#header {
 
         div.shortcut-btns {
             position: absolute;
-            margin-top: 50px;
+            margin-top: 35px;
 
             div.shortcut-btn {
                 display: inline-block;
-                padding: 10px 40px;
+                padding: 10px 2.5vw;
                 margin-right: 15px;
                 border-radius: 50px;
                 border-style: solid;
@@ -484,14 +547,7 @@ div#header {
     &.activated {
         div.introduction > div.intro-text > p#headerCaption {
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-
-            &.active-caret {
-                border-right-width: 3px;
-                border-right-style: solid;
-                animation: typing 2s steps(15, end), caret 1s step-end infinite 2.2s;
-            }
+            animation: typing 2s steps(15, end), caret 1s step-end infinite 2.2s;
         }
     }
 }
@@ -514,14 +570,31 @@ div#about {
         div.about-container {
             p#aboutCaption {
                 display: block;
-                white-space: nowrap;
-                overflow: hidden;
+                animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
+            }
+        }
+    }
+}
 
-                &.active-caret {
-                    border-right-width: 3px;
-                    border-right-style: solid;
-                    animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
-                }
+
+// Projects
+div#projects {
+    display: flex;
+    div.projects-container {
+        margin: 10px auto auto auto;
+        font-size: 6vw;
+
+        p#projectsCaption {
+            display: none;
+            margin: 0;
+        }
+    }
+
+    &.activated {
+        div.projects-container {
+            p#projectsCaption {
+                display: block;
+                animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
             }
         }
     }

@@ -6,6 +6,17 @@ html, body {
   overflow-x: hidden;
   transition: color 1s, background-color 1s;
 }
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 10px;
+}
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  border: solid 2px transparent;
+  background-clip: content-box;
+}
 
 .page {
   display: block;
@@ -14,7 +25,14 @@ html, body {
 }
 
 .mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Roboto Mono", monospace;
+}
+
+.typewriter {
+  white-space: nowrap;
+  overflow: hidden;
+  border-right-width: 3px;
+  border-right-style: solid;
 }
 
 @keyframes typing {
@@ -40,6 +58,12 @@ body.dark-mode {
   background-color: #252525;
   color: white;
 }
+body.dark-mode::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+  background-color: #b2b2b2;
+}
 body.dark-mode div#navigationBar {
   background-color: #191919;
 }
@@ -56,7 +80,7 @@ body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container u
 body.dark-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar li::before {
   background-color: white;
 }
-body.dark-mode div#header div.introduction div.intro-text p#headerCaption.active-caret {
+body.dark-mode div#header div.introduction div.intro-text p#headerCaption {
   color: #dd812b;
   border-right-color: #dd812b;
 }
@@ -66,12 +90,12 @@ body.dark-mode div#header div.introduction div.appearance-toggle-container svg#r
 }
 @keyframes moonrise {
   0% {
-    transform: translateY(200px);
+    transform: translateY(200px) rotate(-45deg);
     opacity: 0;
     filter: none;
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0);
     opacity: 1;
   }
 }
@@ -91,10 +115,10 @@ body.dark-mode div#header div.introduction div.appearance-toggle-container svg#s
   }
 }
 body.dark-mode div#header div.shortcut-btns div.shortcut-btn {
-  border-color: #191919;
+  border-color: white;
 }
 body.dark-mode div#header div.shortcut-btns div.shortcut-btn:hover {
-  background-color: #bebebe;
+  background-color: white;
   color: black;
   border-color: #252525;
   outline-color: white;
@@ -103,10 +127,20 @@ body.dark-mode div#about div.about-container p#aboutCaption {
   color: #dd812b;
   border-right-color: #dd812b;
 }
+body.dark-mode div#projects div.projects-container p#projectsCaption {
+  color: #dd812b;
+  border-right-color: #dd812b;
+}
 
 body.light-mode {
   background-color: white;
   color: black;
+}
+body.light-mode::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+body.light-mode::-webkit-scrollbar-thumb:hover {
+  background-color: #505050;
 }
 body.light-mode div#navigationBar {
   background-color: white;
@@ -126,7 +160,7 @@ body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container 
 body.light-mode div#navigationBar div.nav-container > div.nav-sidebar-container ul.nav-sidebar li::before {
   background-color: black;
 }
-body.light-mode div#header div.introduction div.intro-text p#headerCaption.active-caret {
+body.light-mode div#header div.introduction div.intro-text p#headerCaption {
   color: black;
   border-right-color: black;
 }
@@ -151,11 +185,11 @@ body.light-mode div#header div.introduction div.appearance-toggle-container svg#
 }
 @keyframes sunrise {
   0% {
-    transform: translateY(200px);
+    transform: translateY(200px) rotate(45deg);
     opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0);
     opacity: 1;
   }
 }
@@ -172,10 +206,14 @@ body.light-mode div#about div.about-container p#aboutCaption {
   color: black;
   border-right-color: black;
 }
+body.light-mode div#projects div.projects-container p#projectsCaption {
+  color: black;
+  border-right-color: black;
+}
 
 div#navigationBar {
   width: 100vw;
-  height: 60px;
+  height: 65px;
   position: fixed;
   z-index: 99;
   transition: background-color 1s, box-shadow 1s;
@@ -208,7 +246,7 @@ div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger {
   gap: 7px;
   width: min-content;
   position: relative;
-  top: 17px;
+  top: 19.5px;
   left: 0;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar1, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar2, div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger div.bar3 {
@@ -223,13 +261,13 @@ div#navigationBar div.nav-container div.nav-sidebar-container div#navHamburger:h
 }
 div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar {
   position: absolute;
-  top: 65px;
+  top: 70px;
   left: 0;
   max-height: 0;
   overflow: hidden;
   padding: 0;
   margin: 0;
-  transition: max-height 0.8s;
+  transition: max-height 0.8s, background-color 1s, color 1s, box-shadow 1s;
   list-style: none;
   border-radius: 5px;
 }
@@ -241,6 +279,7 @@ div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar::be
   width: 5px;
   height: calc(100% - 8px);
   border-radius: 5px;
+  transition: background-color 1s;
 }
 div#navigationBar div.nav-container div.nav-sidebar-container ul.nav-sidebar li {
   padding: 10px 25px;
@@ -281,7 +320,7 @@ div#navigationBar div.nav-container div.nav-sidebar-container.active ul.nav-side
   left: 9px;
   width: 0;
   height: 5px;
-  transition: width 0.3s;
+  transition: width 0.3s, background-color 1s;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -299,6 +338,7 @@ div#navigationBar div.nav-container h1.page-title {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  transition: color 0.1s;
 }
 div#navigationBar div.nav-container h1.page-title:hover {
   cursor: pointer;
@@ -314,33 +354,34 @@ div#header div.introduction {
 div#header div.introduction div.intro-text {
   font-size: 7vw;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 div#header div.introduction div.intro-text p#headerCaption {
   display: none;
   margin: 0 auto;
+  transition: color 1s;
 }
 div#header div.introduction div.appearance-toggle-container svg#roundMoon, div#header div.introduction div.appearance-toggle-container svg#shiningSun {
   position: absolute;
-  top: 14%;
-  left: calc((100% - 200px) / 2);
-  width: 200px;
-  height: 200px;
+  top: 16%;
+  left: calc((100% - 225px) / 2);
+  width: 225px;
+  height: 225px;
   transition: width 0.5s, height 0.5s, left 0.5s, filter 1s;
 }
 div#header div.introduction div.appearance-toggle-container svg#roundMoon:hover, div#header div.introduction div.appearance-toggle-container svg#shiningSun:hover {
-  left: calc((100% - 215px) / 2);
-  width: 215px;
-  height: 215px;
+  left: calc((100% - 250px) / 2);
+  width: 250px;
+  height: 250px;
   cursor: pointer;
 }
 div#header div.introduction div.shortcut-btns {
   position: absolute;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 div#header div.introduction div.shortcut-btns div.shortcut-btn {
   display: inline-block;
-  padding: 10px 40px;
+  padding: 10px 2.5vw;
   margin-right: 15px;
   border-radius: 50px;
   border-style: solid;
@@ -370,12 +411,6 @@ div#header div.introduction div.shortcut-btns div.shortcut-btn.projects-shortcut
 }
 div#header.activated div.introduction > div.intro-text > p#headerCaption {
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
-}
-div#header.activated div.introduction > div.intro-text > p#headerCaption.active-caret {
-  border-right-width: 3px;
-  border-right-style: solid;
   animation: typing 2s steps(15, end), caret 1s step-end infinite 2.2s;
 }
 
@@ -392,12 +427,22 @@ div#about div.about-container p#aboutCaption {
 }
 div#about.activated div.about-container p#aboutCaption {
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
+  animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
 }
-div#about.activated div.about-container p#aboutCaption.active-caret {
-  border-right-width: 3px;
-  border-right-style: solid;
+
+div#projects {
+  display: flex;
+}
+div#projects div.projects-container {
+  margin: 10px auto auto auto;
+  font-size: 6vw;
+}
+div#projects div.projects-container p#projectsCaption {
+  display: none;
+  margin: 0;
+}
+div#projects.activated div.projects-container p#projectsCaption {
+  display: block;
   animation: typing 1.4s steps(8, end), caret 1s step-end infinite 1.6s;
 }
 
